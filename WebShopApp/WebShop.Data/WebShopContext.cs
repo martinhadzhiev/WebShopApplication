@@ -1,7 +1,8 @@
 ﻿namespace WebShop.Data
 {
     using Microsoft.AspNet.Identity.EntityFramework;
-    using WebShop.Models;
+    using System.Data.Entity;
+    using Models;
 
     public class WebShopContext : IdentityDbContext<ApplicationUser>
     {
@@ -9,6 +10,8 @@
             : base("WebShopContext", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Product> Products { get; set; }
 
         public static WebShopContext Create()
         {
