@@ -1,0 +1,83 @@
+﻿@model WebShop.Models.Product
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row" style="padding-right:20px; padding-top:20px;">
+    <!--Thumbnail-->
+    <div class="col-md-6">
+        <div class="thumbnail col-md-10">
+            <img src="~/UploadedImages/@Model.ImageUrl" style="height:300px; width:400px" alt="detailsThumbnail">
+        </div>
+    </div>
+    <!--Thumbnail-->
+    <!--Info-->
+    <div class="col-md-6">
+        <div class="caption col-md-12">
+            <h3>@Model.Name</h3>
+            <p>$@Model.Price</p>
+            <div class="well text-center col-md-12">
+                <p>@Model.Review</p>
+            </div>
+            <div class="container">
+                <!-- Trigger the modal with a button -->
+                @Html.ActionLink("Buy", "AddProduct", "Cart", new { id = Model.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Back", "List", null, new { @class = "btn btn-default" })
+
+                <!--Modal-->
+            </div>
+            <footer>
+                @if (User.IsInRole("Admin"))
+            {
+                    <span style="margin-right:2px;">
+                        @Html.ActionLink("Edit", "Edit", "Product", new { @id = Model.Id }, new { @class = "btn btn-success", @style = "margin-top:10px; margin-left:15px;" })
+                    </span>
+                    <span>
+                        @Html.ActionLink("Delete", "Delete", "Product", new { @id = Model.Id }, new { @class = "btn btn-danger ", @style = "margin-top:10px; margin-left:1px;" })
+                    </span>
+                }
+            </footer>
+        </div>
+    </div>
+    <!--Info-->
+</div>
+<div class="container col-lg-12 col-md-12 col-sm-12">
+    <!--Review Button-->
+    @if (User.IsInRole("User") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Leave A Comment", "Create", "Comment", new { id = Model.Id }, new { @class = "btn btn-success", @style = "margin-top:20px;" })
+    }
+    else
+    {
+        <p>
+            To leave comment please
+            @Html.ActionLink("Sign in", "LogIn", "Account", null, new { @class = "btn btn-xs btn-primary" }).
+        </p>
+    }
+    <!--Review Button-->
+    <hr />
+    <!--Comment Section-->
+    <div class="row">
+        @foreach (var comment in Model.Comments.OrderByDescending(c => c.AddedOn))
+        {
+            <div class="col-md-12">
+                <strong style="margin-left:20px">@comment.Email :</strong>
+                <span class="pull-right">@comment.AddedOn</span>
+                <div class="well">
+                    @comment.Content
+                    <span class="pull-right">
+                        @if (User.IsInRole("Admin") || comment.Email == this.User.Identity.Name)
+                        {
+                            @Html.ActionLink("Edit", "Edit", "Comment", new { id = comment.Id }, new { @class = "btn btn-xs btn-primary", @style = "margin-right:10px" })
+                            @Html.ActionLink("Delete", "Delete", "Comment", new { id = comment.Id }, new { @class = "btn btn-xs btn-danger" })
+                        }
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+    <!--Comment Section End-->
+
+</div>
