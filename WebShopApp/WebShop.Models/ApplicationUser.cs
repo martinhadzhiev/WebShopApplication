@@ -2,11 +2,19 @@
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -14,5 +22,14 @@
             // Add custom user claims here
             return userIdentity;
         }
+
+        public int CartId { get; set; }
+
+        public virtual Cart Cart { get; set; }
+
+        public string Address { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
+
     }
 }
