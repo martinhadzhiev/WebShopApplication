@@ -268,7 +268,10 @@
     <Content Include="Views\Order\ConfirmOrder.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Index\" />
+    <Folder Include="UploadedImages\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
