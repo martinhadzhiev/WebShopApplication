@@ -1,0 +1,35 @@
+﻿@model WebShop.Models.Order
+
+
+@{
+    ViewBag.Title = "Complete";
+}
+
+@using (Html.BeginForm("Complete", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+
+    <div class="col-sm-11">
+        <table class="col-sm-10" style="width:100%; margin-top:10px;">
+            <tr>
+                <th>Address</th>
+                <th>Delivery date</th>
+                <th>Product name</th>
+                <th>Price</th>
+            </tr>
+            @foreach (var product in Model.Products)
+                {
+
+                <tr>
+                    <th>@Html.DisplayFor(p => Model.User.Address)</th>
+                    <th>@Html.DisplayFor(p => Model.DeliveryDate)</th>
+                    <th>@Html.DisplayFor(p => product.Name)</th>
+                    <th>@Html.DisplayFor(p => product.Price)</th>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-sm-1">
+        <input type="submit" value="Confirm" class="btn btn-success" />
+    </div>
+}
+

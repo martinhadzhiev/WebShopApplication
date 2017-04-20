@@ -1,0 +1,43 @@
+﻿@model List<WebShop.Models.Order>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<body>
+    <div class="container" style="background:#f9f9f9; margin-top:20px;">
+        <div class="row">
+            @foreach (var order in Model.OrderBy(o => o.CartId))
+            {
+                <div class="col-sm-11">
+                    <table class="col-sm-10" style="width:100%; margin-top:10px;">
+                        <tr>
+                            <th>Address</th>
+                            <th>Delivery date</th>
+                            <th>Product name</th>
+                            <th>Price</th>
+                            <th>IsCompleted</th>
+                        </tr>
+                        @foreach (var product in order.Products)
+                        {
+
+                            <tr>
+                                <th>@Html.DisplayFor(p => order.User.Address)</th>
+                                <th>@Html.DisplayFor(p => order.DeliveryDate)</th>
+                                <th>@Html.DisplayFor(p => product.Name)</th>
+                                <th>@Html.DisplayFor(p => product.Price)</th>
+                                <th>@Html.DisplayFor(p => order.IsCompleted)</th>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-sm-1">
+                    @if (!order.IsCompleted)
+                    {
+                        @Html.ActionLink("Complete", "Complete", "Order", new { @id = order.Id }, new { @class = "btn btn-sm btn-success", @style = "margin-top:25px;" })
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</body>

@@ -1,0 +1,39 @@
+﻿@model WebShop.Models.Cart
+
+@{
+    ViewBag.Title = "ConfirmOrder";
+}
+
+<div class="container">
+    <div class="well">
+        <h2>Confirm Order</h2>
+        @using (Html.BeginForm("ConfirmOrder", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table style="width:100%;">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                @foreach (var product in Model.Products)
+                {
+
+                    <tr>
+                        <th>@Html.DisplayFor(p => product.Name)</th>
+                        <th>@Html.DisplayFor(modelItem => product.Price)$</th>
+                    </tr>
+
+                }
+            </table>
+
+
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    @Html.ActionLink("Cancel", "List", "Product", null, new { @class = "btn btn-default" })
+                    <input type="submit" value="Confirm" class="btn btn-success" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
