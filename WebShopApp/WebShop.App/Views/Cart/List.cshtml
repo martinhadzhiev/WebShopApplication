@@ -1,0 +1,24 @@
+﻿@model WebShop.Models.Cart
+
+@{
+    ViewBag.Title = "List";
+}
+<body>
+    @foreach (var product in Model.Products)
+            {
+        <div class="container text-center col-sm-12" style="background:#f9f9f9; margin-top:20px;">
+            <div class="row">
+                <div style="margin-top:10px;margin-bottom:10px">
+                    <h3 class="text-center">@Html.DisplayFor(p => product.Name)</h3>
+                    <p class="text-center" style="border:solid 1px #f2f2f2">Added on: @Html.DisplayFor(modelItem => product.AddedOn)</p>
+                    <p><h3 class="text-center">@Html.DisplayFor(modelItem => product.Price)$</h3></p>
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <p class="text-center">@Html.ActionLink("Confirm order", "ConfirmOrder", "Order", new { @id = Model.Id }, new { @class = "btn btn-primary" })</p>
+
+</body>
+

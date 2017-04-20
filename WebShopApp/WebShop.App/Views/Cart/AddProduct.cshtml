@@ -1,0 +1,44 @@
+﻿@model WebShop.Models.Product
+
+
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+@using (Html.BeginForm("AddProduct", "Cart", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="row" style="padding-right:20px; padding-top:20px;">
+        <!--Thumbnail-->
+        <div class="col-md-6">
+            <div class="thumbnail col-md-10">
+                <img src="~/UploadedImages/@Model.ImageUrl" style="height:300px; width:400px" alt="detailsThumbnail">
+            </div>
+        </div>
+        <!--Thumbnail-->
+        <!--Info-->
+        <div class="col-md-6">
+            <div class="caption col-md-12">
+                <h3>@Model.Name</h3>
+                <p>@Model.Price</p>
+                <div class="well text-center col-md-12">
+                    <p>@Model.Review</p>
+                </div>
+                <div class="container">
+                    <div class="form-group">
+                        <div>
+                            <input type="submit" value="Add to cart" class="btn btn-success" />
+                            @Html.ActionLink("Cancel", "List", "Product", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Info-->
+    </div>
+    <div class="container col-lg-12 col-md-12 col-sm-12">
+
+    </div>
+    <div class="form-group">
+
+    </div>
+}
